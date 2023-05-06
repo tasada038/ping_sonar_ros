@@ -44,6 +44,19 @@ Visualization Manager:
       Reference Frame: <Fixed Frame>
       Value: true
 
+    - Class: jsk_rviz_plugin/Plotter2D
+      Name: Distance[m]
+      Enabled: true
+      Topic: /ping1d/data
+      width: 100
+      height: 50
+      left: 50
+      top: 400
+      auto scale: false
+      max value: 5
+      min value: -5
+      foreground color: 25; 255; 240
+      foreground alpha: 0.7
 
     - Class: jsk_rviz_plugin/Plotter2D
       Name: Speed[m/s]
@@ -140,7 +153,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 9.000
+      Distance: 8.000
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
