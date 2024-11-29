@@ -58,12 +58,11 @@ class Ping1dComponent(Node):
     self.declare_parameter('mode_auto', 0) # default 0: manual mode, 1: auto mode
     self.mode_auto_:int = self.get_parameter('mode_auto').value
     self.declare_parameter('port', '/dev/ttyUSB0')
-    self.port_:str = self.get_parameter('port').value
+    self.port:str = self.get_parameter('port').value
 
     self.param_handler_ptr_ = self.add_on_set_parameters_callback(self.set_param_callback)
 
     ### Make a new Ping
-    self.port = self.port_
     self.baudrate = 115200
     self.ping = module.Ping1D()
     self.ping.connect_serial(self.port, self.baudrate)
