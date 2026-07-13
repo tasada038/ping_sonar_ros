@@ -79,7 +79,7 @@ $ ros2 param list
 
 - gain_num parameter range is [0 - 6] (int).
 - interval_num range is [50 - 200] (int, ms).
-- mode_auto range is [0 or 1].
+- mode_auto range is [0 or 1]. Default is auto mode "1"
 - scan_lenght range is [2000 - 10000] (int ms). Blue Robotics Inc. default is 2000 mm.
 - scan_start range is [30 - 200]. Blue Robotics Inc. default is 100 mm.
 - scan_start range is [1050000 - 1550000] (int mm/s).

@@ -21,6 +21,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #-----------------------------------------------------------------------------------
+# ros2 param set /ping1d_node scan_lenght "1000"
+# ros2 param set /ping1d_node scan_lenght "500"
+# 0.94-0.45
+
+# ros2 param set /ping1d_node scan_start "30"
+# ros2 param set /ping1d_node gain_num "0"
+# ros2 param set /ping1d_node interval_num "50"
 
 from rclpy.node import Node
 from sensor_msgs.msg import Range
@@ -42,22 +49,23 @@ class Ping1dComponent(Node):
     self.interval_pub_ = self.create_publisher(Float32, "/ping1d/param/interval", 10)
     self.gain_pub_ = self.create_publisher(Float32, "/ping1d/param/gain", 10)
     self.mode_pub_ = self.create_publisher(Float32, "/ping1d/param/mode", 10)
-    self.timer_ = self.create_timer(0.1, self.range_callback)
+    self.timer_ = self.create_timer(0.05, self.range_callback)
 
     ### Declare ROS 2 Parameter
-    self.declare_parameter('speed', 1450000)  # 1550000 mm/s 1550 m/s
-    self.speed_:float = self.get_parameter('speed').value
-    self.declare_parameter('interval_num', 100)
-    self.interval_num_:float = self.get_parameter('interval_num').value
+    self.declare_parameter('speed', 1480000)  # 1550000 mm/s 1550 m/s
+    self.declare_parameter('interval_num', 50)
     self.declare_parameter('gain_num', 1) # int 0 - 6
-    self.gain_num_:int = self.get_parameter('gain_num').value
     self.declare_parameter('scan_start', 100) # default 100 [mm] range(30 to 200)
-    self.scan_start_:float = self.get_parameter('scan_start').value
-    self.declare_parameter('scan_lenght', 3000) # default 2000 [mm] range(2000 to 10000)
-    self.scan_lenght_:float = self.get_parameter('scan_lenght').value
-    self.declare_parameter('mode_auto', 0) # default 0: manual mode, 1: auto mode
-    self.mode_auto_:int = self.get_parameter('mode_auto').value
+    self.declare_parameter('scan_lenght', 1000) # default 2000 [mm] range(2000 to 10000)
+    self.declare_parameter('mode_auto', 1) # default 1: auto mode, 0: manual mode
     self.declare_parameter('port', '/dev/ttyUSB0')
+
+    self.speed_:float = self.get_parameter('speed').value
+    self.interval_num_:float = self.get_parameter('interval_num').value
+    self.gain_num_:int = self.get_parameter('gain_num').value
+    self.scan_start_:float = self.get_parameter('scan_start').value
+    self.scan_lenght_:float = self.get_parameter('scan_lenght').value
+    self.mode_auto_:int = self.get_parameter('mode_auto').value
     self.port:str = self.get_parameter('port').value
 
     self.param_handler_ptr_ = self.add_on_set_parameters_callback(self.set_param_callback)
